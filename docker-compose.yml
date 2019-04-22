@@ -19,6 +19,7 @@ services:
     image: grafana/grafana
     ports:
      - "3000:3000"
+    command: "GF_SECURITY_ADMIN_PASSWORD=secret"
     depends_on:
       - prom
 ####snmp_exporter####
@@ -30,3 +31,19 @@ services:
       - "9116:9116"
     depends_on:
        - exporter
+
+#######cadvisor############
+
+  cadvisor:
+     image: google/cadvisor:latest
+     container_name: cadvisor
+     ports:
+     - 8080:8080
+     volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
+     depends_on:
+     - prom
