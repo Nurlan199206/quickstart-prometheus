@@ -26,8 +26,8 @@
       "description": "",
       "fill": 1,
       "gridPos": {
-        "h": 4,
-        "w": 12,
+        "h": 7,
+        "w": 11,
         "x": 0,
         "y": 0
       },
@@ -58,14 +58,14 @@
           "expr": "sum (rate (container_network_receive_bytes_total{image!=\"\"}[1m])) by (image)",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{image}}",
+          "legendFormat": "IN {{image}}",
           "refId": "A"
         },
         {
           "expr": "sum (rate (container_network_transmit_bytes_total{image!=\"\"}[1m])) by (image)",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{image}}",
+          "legendFormat": "OUT {{image}}",
           "refId": "B"
         }
       ],
@@ -118,10 +118,10 @@
       "description": "",
       "fill": 1,
       "gridPos": {
-        "h": 5,
-        "w": 12,
-        "x": 0,
-        "y": 4
+        "h": 7,
+        "w": 11,
+        "x": 11,
+        "y": 0
       },
       "id": 4,
       "legend": {
@@ -205,9 +205,9 @@
       "fill": 1,
       "gridPos": {
         "h": 6,
-        "w": 12,
+        "w": 11,
         "x": 0,
-        "y": 9
+        "y": 7
       },
       "id": 2,
       "legend": {
@@ -290,7 +290,7 @@
     "list": []
   },
   "time": {
-    "from": "now-15m",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {
@@ -321,5 +321,5 @@
   "timezone": "",
   "title": "Dash",
   "uid": "D-Q8oGzWk",
-  "version": 4
+  "version": 5
 }
