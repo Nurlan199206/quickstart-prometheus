@@ -7,10 +7,12 @@ global:
   # Attach these labels to any time series or alerts when communicating with
   # external systems (federation, remote storage, Alertmanager).
   external_labels:
-      monitor: 'codelab-monitor'
+      monitor: 'alertmanager'
+
 
 # Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
 rule_files:
+    - "alert.rules"
   # - "first.rules"
   # - "second.rules"
 
@@ -27,7 +29,7 @@ scrape_configs:
     # scheme defaults to 'http'.
 
     static_configs:
-      - targets: ['localhost:9090','35.204.160.171:8080']
+      - targets: ['localhost:9090','35.204.160.171:8080','35.204.160.171:9093']
   - job_name: "node"
     scrape_interval: "15s"
     static_configs:
@@ -51,4 +53,27 @@ scrape_configs:
       - target_label: __address__
         replacement: 127.0.0.1:9116  # The SNMP exporter's real hostname:port.
 
+
+##############blackbox_exporter################
+
+  - job_name: 'Webservers'
+    metrics_path: /probe
+    params:
+      module: [http_2xx]  # Look for a HTTP 200 response.
+    static_configs:
+      - targets:
+        - https://website.kz
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: 35.204.160.171:9115  # The blackbox exporter's real hostname:port.
+
+alerting:
+  alertmanagers:
+  - static_configs:
+    - targets:
+      - 35.204.160.171:9093
 
