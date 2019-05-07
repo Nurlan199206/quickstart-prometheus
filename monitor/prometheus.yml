@@ -29,11 +29,8 @@ scrape_configs:
     # scheme defaults to 'http'.
 
     static_configs:
-<<<<<<< HEAD
       - targets: ['localhost:9090','35.204.160.171:8080','35.204.160.171:9093']
-=======
       - targets: ['localhost:9090','cadvisor:8080']
->>>>>>> 71d0d86c1bbc547066daaa38878ae0fc7102f771
   - job_name: "node"
     scrape_interval: "15s"
     static_configs:
